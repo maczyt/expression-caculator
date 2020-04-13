@@ -1,5 +1,5 @@
 import { expect } from "chai";
-import Calculator from "../src/Calculator";
+import { Calculator } from '../index'
 
 /**
  * Test Case 来自: https://github.com/romacher/expression-calculator
