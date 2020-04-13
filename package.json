@@ -1,0 +1,21 @@
+{
+  "name": "expression-caculator",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha \"**/__tests__/**/*.test.ts\" -r ts-node/register",
+    "coverage": "nyc yarn run test"
+  },
+  "repository": "git@github.com:maczyt/expression-caculator.git",
+  "author": "maczyt",
+  "license": "MIT",
+  "devDependencies": {
+    "chai": "^4.2.0",
+    "mocha": "^7.1.1",
+    "nyc": "^15.0.1",
+    "ts-node": "^8.8.2"
+  },
+  "dependencies": {
+    "typescript": "^3.8.3"
+  }
+}
