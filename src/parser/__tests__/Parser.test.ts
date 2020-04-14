@@ -26,7 +26,7 @@ describe('Parser', () => {
     assert.equal(v3.getLexeme().getValue(), '3')
     const v4 = e3.getChild(1)
     assert.equal(v4.getLexeme().getValue(), '4')
-    expr.print()
+    // expr.print()
   });
 
   it('Test 2+3*3', () => {
@@ -36,7 +36,7 @@ describe('Parser', () => {
     const parser = new Parser()
     const tokensIt = new PeekTokenIterator(arrayToGenerator(tokens))
     const expr = parser.parse(tokensIt) 
-    expr.print()
+    // expr.print()
   })
   it('Test 2*(3+1)*3', () => {
     const it = new PeekIterator(arrayToGenerator([...'2*(3+1)*3']), '\0')
@@ -45,7 +45,7 @@ describe('Parser', () => {
     const parser = new Parser()
     const tokensIt = new PeekTokenIterator(arrayToGenerator(tokens))
     const expr = parser.parse(tokensIt)
-    expr.print()
+    // expr.print()
   });
 
   it("Brackets must be paired", function () {
@@ -56,4 +56,5 @@ describe('Parser', () => {
     const tokensIt = new PeekTokenIterator(arrayToGenerator(tokens))
     expect(() => parser.parse(tokensIt)).to.throw('Syntax error, Unexpected token )')
   });
+
 });
