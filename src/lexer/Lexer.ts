@@ -14,7 +14,6 @@ class Lexer {
         tokens.push(Token.makeOperator(it))
       } else if (/[0-9]/.test(c)) {
         it.putBack()
-        console.log('c', c)
         tokens.push(Token.makeNumber(it))
       } else if (c === '(' || c === ')') {
         it.putBack()

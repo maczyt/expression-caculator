@@ -30,6 +30,11 @@ class ASTNode {
     node.parent = this
     this.children.push(node)
   }
+
+  print(indent: number = 0) {
+    console.log(`${''['padStart'](indent * 2, ' ')}${this.label}`)
+    this.children.forEach(child => child.print(indent + 1))
+  }
 }
 
 export default ASTNode

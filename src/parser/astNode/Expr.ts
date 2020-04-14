@@ -59,6 +59,7 @@ class Expr extends ASTNode {
     // 吃掉op(k)
     const c = it.peek();
     const value = c.getValue();
+    if (!PriorityTable[k]) return null
     if (PriorityTable[k].indexOf(value) !== -1) {
       it.nextMatch(value); // 吃掉这个op流
       const expr = Expr.fromToken(c, ASTNodeTypes.BINARY_EXPR);
@@ -98,6 +99,9 @@ class Expr extends ASTNode {
       return it.hasNext() ? funcB() : null;
     }
     const b: ASTNode = it.hasNext() ? funcB() : null;
+    if (b === null) {
+      return a
+    }
     // a 和 b 都是存在，则新建一个Expr节点，然后a和b作为其子节点
     // 简单理解 a = 1, b = + 2
     // 新建一个 + 的节点 作为 1 和 2 的父节点
@@ -106,6 +110,7 @@ class Expr extends ASTNode {
     expr.addChild(b.getChild(0));
     return expr;
   }
+
   static race(it: PeekTokenIterator, funcA: Function, funcB: Function) {
     if (!it.hasNext()) return null;
     // 还有流，要么 funcA 吃，要么 funcB 吃
