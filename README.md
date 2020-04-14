@@ -283,7 +283,7 @@ const PriorityTable = [
 
 具体实现可以点击[这里](./src/parser/astNode/Expr.ts)
 
-<img src="/Users/maczyt/Library/Application Support/typora-user-images/image-20200414150322386.png" alt="image-20200414150322386" style="zoom:50%;" />
+<img src="./image/img5.png" alt="ast" style="zoom:50%;" />
 
 我们传入两个表达式，生成了上图的抽象语法树，Perfect~ 😎
 
