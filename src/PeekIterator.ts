@@ -1,7 +1,7 @@
 import LinkedList from "./LinkedList"
 
 const CACHE_SIZE = 5
-class PeekIterator<T> {
+class PeekIterator<T=string> {
   private it: Generator<T>
   // 流的结束标志位
   private endToken: T | string
@@ -11,7 +11,7 @@ class PeekIterator<T> {
   private queuCache: LinkedList<T>
   constructor(it: Generator<T>, endToken = '') {
     this.it = it
-    this.endToken = ''
+    this.endToken = endToken
     this.stackPutBacks = new LinkedList()
     this.queuCache = new LinkedList()
   }
