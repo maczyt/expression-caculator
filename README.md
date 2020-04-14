@@ -187,5 +187,99 @@ interface IPeekTokenIterator extends IPeekIterator {
 
 
 
+### 🤓 节点Parse
 
+上面我们知道四则运算的产生式为：`Expr -> Expr + Expr | Factor`
+
+也就是一个`Expr`可以一直递归为`Expr`，这样将陷入递归死循环，因为我们最终的结果是要吃掉所有的符号流，而`Expr`并不是终结符，所以不能被吃，只能一直递归，这样我们可以通过**消除左递归**的方式
+
+有个公式:
+
+如：`A -> A + A | F`
+
+公式:
+
+``` shell
+α = +A
+β = F
+# 这个时候 A -> Aα | β
+
+A -> βA_
+A_ -> αA_ | ε
+```
+
+这里简单解释下：
+
+``` shell
+β: 终止符
+ε: 空符号（可以理解为null）
+```
+
+通过上面的转换，我们每次处理`A`都能先吃掉`β`，处理`A_`都能吃掉`α的+`，最终我们可以吃掉所有的流，把这些流转成抽象语法树的一个个节点。
+
+
+
+#### 🤗 上面的递归关系如何描述呢？
+
+现在我们得到了公式：`A -> βA_` `A_ -> αA_ | ε`
+
+我们看到有`βA_`和`A_ | ε`，所以我们需要引入`combine` 和 `race` ，combine表示合、race表示竞争关系。
+
+> 问：不是很理解哎?
+>
+> 答：简单来说，我们看到 `A ->βA_`，也就是`A = β combine A_`，而`A_ -> αA_ | ε`则是 `A_ = αA_ race ε`, combine 表示合并两个parse，而race则表示取其中一个parse。
+
+
+
+ 🧩 Bling bling ~
+
+```
+left: Expr -> Expr [+-/*] Expr | Factor
+right: 
+​	Expr -> Factor Expr_
+​	Expr_ -> [+-/*] Expr Expr_ | ε
+```
+
+这样好像有点不对哦，如：`2 + 3 * 3`
+
+<img src="./image/g1.svg" alt="当前AST" style="zoom:75%;" />
+
+
+
+这。。。，明显不符合我们所学，应该是先`*`再`+`的，但是上面会先`+`再`*`，这是为啥呢？
+
+> 答：优先级 🙈，这里我们并没有引入优先级，我们通过优先级表来处理，我们再来分析一下产生式是如何的
+
+
+
+当遇到`()`表示其内容是一个`Expr`, 这里不需要处理优先级，而`+-*/`的优先级我们怎么处理呢？
+
+
+
+#### 🤗 四则运算的产生式
+
+```
+* left: Expr(k) -> Expr(k) op(k) Expr(k+1) | Expr(k+1)
+* right:
+*  Expr(k) -> Expr(k+1) Expr_(k) // combine
+*  Expr_(k) -> op(k) Expr(k+1) Expr_(k) | ε // race
+*  // 终结条件
+*  Expr(t) -> Factor Expr_(t)
+*  Factor -> [0-9] | (Expr)
+```
+
+> k 表示优先级，优先级递增，也就是Expr(k+1)中处理的是 * /
+
+
+
+🧩 优先级表
+
+``` typescript
+const PriorityTable = [
+  ['+', '-'], // k: 0
+  ['*', '/'] // k: 1
+]
+```
+
+具体实现可以点击[这里](./src/parser/astNode/Expr.ts)
 

@@ -2,10 +2,10 @@ import Token from "../../lexer/Token"
 import ASTNodeTypes from "./ASTNodeTypes"
 
 class ASTNode {
-  private parent: ASTNode
-  private children: Array<ASTNode>
+  parent: ASTNode
+  children: Array<ASTNode>
   // 当前节点的符号流
-  private lexeme: Token
+  lexeme: Token
   // 当前节点的显示label, 其实也就是lexeme符号流的value
   label: string
   type: ASTNodeTypes
@@ -23,7 +23,13 @@ class ASTNode {
   getLexeme(): Token {
     return this.lexeme
   }
-
+  getChild(index): ASTNode {
+    return this.children[index]
+  }
+  addChild(node: ASTNode) {
+    node.parent = this
+    this.children.push(node)
+  }
 }
 
 export default ASTNode
