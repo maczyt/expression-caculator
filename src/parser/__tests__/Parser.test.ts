@@ -35,7 +35,7 @@ describe('Parser', () => {
     const tokens = lexer.analyse(it)
     const parser = new Parser()
     const tokensIt = new PeekTokenIterator(arrayToGenerator(tokens))
-    const expr = parser.parse(tokensIt) 
+    // const expr = parser.parse(tokensIt) 
     // expr.print()
   })
   it('Test 2*(3+1)*3', () => {
