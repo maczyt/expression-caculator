@@ -6,6 +6,7 @@ import PeekTokenIterator from "./PeekTokenIterator"
 import ASTNode from "./parser/astNode/ASTNode"
 import TokenTypes from "./lexer/TokenTypes"
 import ParseError from "./ParseError"
+import Translator from "./translator/Translator"
 
 class Calculator {
   static exculate(source: string) {
@@ -15,8 +16,10 @@ class Calculator {
     const parser = new Parser()
     const tokensIt = new PeekTokenIterator(arrayToGenerator(tokens))
     const ast = parser.parse(tokensIt)
-    // console.log('ast', ast)
-    ast.print()
+    const translator = new Translator()
+    // translator.translate(ast)
+    console.log(`source: "${source}"`)
+    console.log(translator.translate(ast).toString())
     return Calculator.getNodeValue(ast)
   }
 

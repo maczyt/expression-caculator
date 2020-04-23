@@ -16,6 +16,10 @@ class Token<T=string> {
     return this.value
   }
 
+  isScalar() {
+    return this.type === TokenTypes.NUMBER
+  }
+
   static makeNumber(it: PeekIterator): Token {
     let state = 0
     let s = ''

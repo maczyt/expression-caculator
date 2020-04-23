@@ -10,12 +10,15 @@ class ASTNode {
   label: string
   type: ASTNodeTypes
 
+  props: object
+
   constructor(parent: ASTNode=null, type, label) {
     this.parent = parent
     this.type = type
     this.label = label
     this.children = []
     this.lexeme = null
+    this.props = {}
   }
   setLexeme(lexeme: Token) {
     this.lexeme = lexeme
@@ -31,6 +34,12 @@ class ASTNode {
     this.children.push(node)
   }
 
+  setProp(key, value) {
+    this.props[key] = value
+  }
+  getProp(key) {
+    return this.props[key] || null
+  }
   print(indent: number = 0) {
     console.log(`${''['padStart'](indent * 2, ' ')}${this.label}`)
     this.children.forEach(child => child.print(indent + 1))
