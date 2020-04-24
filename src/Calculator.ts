@@ -7,6 +7,7 @@ import ASTNode from "./parser/astNode/ASTNode"
 import TokenTypes from "./lexer/TokenTypes"
 import ParseError from "./ParseError"
 import Translator from "./translator/Translator"
+import { inFixToSuffix } from "./utils"
 
 class Calculator {
   static exculate(source: string) {
@@ -15,11 +16,10 @@ class Calculator {
     const tokens = lexer.analyse(it)
     const parser = new Parser()
     const tokensIt = new PeekTokenIterator(arrayToGenerator(tokens))
-    const ast = parser.parse(tokensIt)
+    const suffixTokenIt = inFixToSuffix(tokensIt)
+    const ast = parser.parseSuffix(suffixTokenIt)
     ast.print()
-    const translator = new Translator()
-    console.log(`source: "${source}"`)
-    console.log(translator.translate(ast).toString())
+    // const translator = new Translator()
     return Calculator.getNodeValue(ast)
   }
 

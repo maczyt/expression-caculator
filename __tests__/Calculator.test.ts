@@ -7,7 +7,7 @@ import { Calculator } from '../index'
 
 describe("Calculator", () => {
   describe("Easy", () => {
-    /*
+    
     it("Test simple addition", () => {
       const expr = "2 + 2";
       const result = 4;
@@ -35,22 +35,6 @@ describe("Calculator", () => {
     it("Test division by zero", function () {
       const expr = "1 / 0";
       expect(Calculator.exculate(expr)).to.equal(Infinity);
-    });
-    */
-
-
-    it("Mixed base test 1", function () {
-      const expr = " 49 * 63 / 58 * 36 ";
-      const result = 1916.069;
-      expect(Number(Calculator.exculate(expr).toFixed(4))).to.equal(result);
-    });
-
-    /*
-
-    it("Mixed base test 2", function () {
-      const expr = " 84 + 62 / 33 * 10 + 15 ";
-      const result = 117.7879;
-      expect(Number(Calculator.exculate(expr).toFixed(4))).to.equal(result);
     });
 
     it("Mixed base test 3", function () {
@@ -89,12 +73,6 @@ describe("Calculator", () => {
       expect(Number(Calculator.exculate(expr).toFixed(4))).to.equal(result);
     });
 
-    it("Mixed base test 9", function () {
-      const expr = " 68 * 60 / 87 / 53 + 17 ";
-      const result = 17.8848;
-      expect(Number(Calculator.exculate(expr).toFixed(4))).to.equal(result);
-    });
-
     it("Mixed base test 10", function () {
       const expr = " 63 - 69 - 46 + 57 ";
       const result = 5.0;
@@ -130,32 +108,26 @@ describe("Calculator", () => {
       const result = 145.9512;
       expect(Number(Calculator.exculate(expr).toFixed(4))).to.equal(result);
     });
-    */
+
+    it("Mixed base test 1", function () {
+      const expr = " 49 * 63 / 58 * 36 ";
+      const result = 1916.069;
+      expect(Number(Calculator.exculate(expr).toFixed(4))).to.equal(result);
+    });
+    it("Mixed base test 2", function () {
+      const expr = " 84 + 62 / 33 * 10 + 15 ";
+      const result = 117.7879;
+      expect(Number(Calculator.exculate(expr).toFixed(4))).to.equal(result);
+    });
+    it("Mixed base test 9", function () {
+      const expr = " 68 * 60 / 87 / 53 + 17 ";
+      const result = 17.8848;
+      expect(Number(Calculator.exculate(expr).toFixed(4))).to.equal(result);
+    });
   });
-
-  /*
+  
   describe("Medium", function () {
-    it("Brackets must be paired", function () {
-      const expr = "1 + 2) * 3";
-      expect(() => Calculator.exculate(expr)).to.throw(
-        "Syntax error, Unexpected token )"
-      );
-    });
-
-    it("Brackets must be paired", function () {
-      const expr = "((1 + 2) * 3";
-      expect(() => Calculator.exculate(expr)).to.throw(
-        "ExpressionError: Brackets must be paired"
-      );
-    });
-
-    it("Brackets must be paired", function () {
-      const expr = "((1 + 2 * 3";
-      expect(() => Calculator.exculate(expr)).to.throw(
-        "ExpressionError: Brackets must be paired"
-      );
-    });
-
+   
     it("Brackets test 1", function () {
       const expr = " 20 - 57 * 12 - (  58 + 84 * 32 / 27  ) ";
       const result = -821.5556;
@@ -467,13 +439,6 @@ describe("Calculator", () => {
       expect(Number(Calculator.exculate(expr).toFixed(4))).to.equal(result);
     });
 
-    it("Nested brackets test 28", function () {
-      const expr =
-        " 31 * 21 + 14 / (  (  18 * 52 / (  43 - 74 / 89 - 12  ) + 8  ) + 3 / 0 + (  9 + 81 + 19 * 94 / (  0 * 71 + 53 - 20 * 94  )  )  ) ";
-      expect(() => Calculator.exculate(expr)).to.throw(
-        "TypeError: Division by zero."
-      );
-    });
 
     it("Nested brackets test 29", function () {
       const expr =
@@ -490,5 +455,4 @@ describe("Calculator", () => {
     });
   });
 
-  */
 })
